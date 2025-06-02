@@ -1,0 +1,93 @@
+  .registration-page {
+    background-color: #002e72c0	;
+    background-size:100%;
+    background-repeat: no-repeat;
+    justify-content:space-evenly;
+    
+  }
+
+  .registration-container {
+    display: flex;
+    justify-content: center;
+    padding: 1%;
+  }
+  
+  .registration-form {
+    justify-content: center;
+    background-color: #F5F7FA;
+    border-radius: 20px;
+    padding: 2rem;
+    max-width: 500px;
+    width: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .form-box {
+    border: none;
+    padding: 0;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #002e72;
+    text-align: center;
+    margin: 1%;
+  }
+  
+  .form-label {
+    display: block;
+    margin-top: 1rem;
+    color: #002e72;
+    margin-left: 15%;
+  }
+  
+  .form-input {
+    display: flex;
+    width: 70%;
+    padding: 0.5rem;
+    margin-top: 1%;
+    margin-bottom: 1.5%;
+    border: 1px solid #002e72;
+    border-radius: 5px;
+    margin-left: 15%;
+  }
+  
+
+  .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 1%;  
+    margin-left: 15%;
+  }
+  label{
+    font-size: medium;
+  }
+  
+  .signup-btn {
+    width: 50%;
+    margin-top: 7%;
+    padding: 0.6rem;
+    font-weight: bold;
+    color: #F5F7FA;
+    background-color: #002e72;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-left: 25%;
+    
+  }
+  
+  .signup-btn:hover {
+    background-color: #005BAC;
+  }
+  
+
+
+
+  
