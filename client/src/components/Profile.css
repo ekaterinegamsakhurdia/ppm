@@ -1,0 +1,20 @@
+.profilepage{
+    
+}
+.myinfobox{
+    margin-left: 2%;
+    color: #002D72;
+}
+.myinfo{
+    font-size: large;
+    margin-left: 1%;
+}
+.myinforow{
+    display: flex;
+    flex-direction: row;
+    width: 110%;
+}
+.myinfoboxwithicon{
+    display: flex;
+    flex-direction: row;
+}

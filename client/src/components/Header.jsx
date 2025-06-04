@@ -16,7 +16,11 @@ const Header = ({ title, subtitle }) => {
   return (
     <div className="homepage">
       <div className="navbar">
-        <h1 className="logo">KIU-rent</h1>
+        <h1 >
+        <Link className="logo" to="/" >
+          KIU-rent
+          </Link>
+          </h1>
         <nav className="navigation">
           <Link className="nav-link" to="/">
             Home
@@ -28,11 +32,7 @@ const Header = ({ title, subtitle }) => {
           <Link className="nav-link" to="/profile">
             My Profile
           </Link>
-
-          {/* <Link className="nav-link" to="/login">
-            Log Out
-          </Link> */}
-          <button onClick={logOutUser}>Log Out</button>
+          <button className="nav-link" onClick={logOutUser}>Log Out</button>
         </nav>
       </div>
 

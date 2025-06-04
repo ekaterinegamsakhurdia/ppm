@@ -7,28 +7,7 @@ import { useEffect } from "react";
 const HomePage = () => {
   return (
     <div className="homepage">
-      {/* <div className="navbar">
-        <h1 className="logo">KIU-rent</h1>
-        <nav className="navigation">
-          <a className="home" href="/">
-            Home
-          </a>
-          <a className="nav-link" href="/find">
-            Find a Product
-          </a>
-          <a className="nav-link" href="/add-product" target="_blank">
-            List a Product
-          </a>
-          <a className="nav-link" href="/profile" target="_blank">
-            My profile
-          </a>
-          <a className="nav-link" href="/Login">
-            Log Out
-          </a>
-        </nav>
-      </div> */}
-
-      <div className="text">
+      <div className="welcome-text">
         <h2>Make Campus Sharing Easy!</h2>
         <h3>
           Rent from fellow students and staff — or earn by listing what you’re
@@ -39,25 +18,21 @@ const HomePage = () => {
       <fieldset className="browse-section">
         <legend className="browse-title">Browse by Product Type</legend>
         <div className="product-grid">
-          <Link to="/products/transportation" className="signup-link">
-            <a className="product-card" href="#">
+
+          <Link to="/products/transportation" className="product-card">
+
               <h3 className="product-title">Transportation</h3>
               <img src="./public/bike.jpg" width="270" />
-            </a>
           </Link>
 
-          <Link to="/products/appliances" className="signup-link">
-            <a className="product-card" href="#">
+          <Link to="/products/appliances" className="product-card">
               <h3 className="product-title">Home Appliances</h3>
               <img src="./public/airfryer1.jpg" width="300" />
-            </a>
           </Link>
 
-          <Link to="/products/other" className="signup-link">
-            <a className="product-card" href="#">
+          <Link to="/products/other" className="product-card">
               <h3 className="product-title">Other Goods</h3>
               <img src="./public/other.jpg" width="300" />
-            </a>
           </Link>
         </div>
       </fieldset>
@@ -72,20 +47,19 @@ const HomePage = () => {
       </div>
 
       <div className="footer">
+
+        
         <div className="footer-navigation">
           <h3>navigation</h3>
-          <a className="fnav-link" href="/">
-            Home
-          </a>
-          <a className="fnav-link" href="/find">
-            Find a Product
-          </a>
-          <a className="fnav-link" href="/list" target="_blank">
-            List a Product
-          </a>
-          <a className="fnav-link" href="/profile" target="_blank">
-            My profile
-          </a>
+          <Link className="fnav-link" to="/">
+                      Home
+          </Link>
+          <Link className="fnav-link" to="/add-product">
+                      List a Product
+          </Link>
+          <Link className="fnav-link" to="/profile">
+                      My Profile
+          </Link>
         </div>
 
         <div className="help">
@@ -121,18 +95,15 @@ const HomePage = () => {
 
         <div className="categories">
           <h3>categories</h3>
-          <a className="fnav-link" href="#">
-            {" "}
-            transportation{" "}
-          </a>
-          <a className="fnav-link" href="#">
-            {" "}
-            home appliances{" "}
-          </a>
-          <a className="fnav-link" href="#">
-            {" "}
-            other{" "}
-          </a>
+           <Link to="/products/transportation" className="fnav-link">
+          transportation
+          </Link>
+          <Link to="/products/transportation" className="fnav-link">
+          home appliances
+          </Link>
+          <Link to="/products/transportation" className="fnav-link">
+          other
+          </Link>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
+import "./ProductCard.css";
 
 const ProductCard = ({ product, mine = false, onDelete }) => {
   console.log(product);
@@ -15,24 +16,30 @@ const ProductCard = ({ product, mine = false, onDelete }) => {
   console.log(product.photo);
 
   return (
-    <div className="product-card">
-      {product.photo && (
+    <div className="productcard">
+    <Link className="linktotheproduct" to={`/product/${product.post_id}`}>
+    <div className="productcardinside">
+      <div  className="image"> 
+        <img src="https://cdn.thegreatprojects.com/thegreatprojects/images/c/c/c/d/9/cccd9ab3a8832417497e233c1cb92b9e.jpg?width=364&height=364&format=jpg" alt="" width="200px" />
+      </div>
+      {/* {product.photo && (
         <img
-          src={`data:image/jpeg;base64,${product.photo}`}
+          src="https://cdn.thegreatprojects.com/thegreatprojects/images/c/c/c/d/9/cccd9ab3a8832417497e233c1cb92b9e.jpg?width=364&height=364&format=jpg"
           alt="product"
           width="100"
         />
-      )}
-      <div>
-        <h3>{product.product_name}</h3>
-        <p>{product.product_price}₾</p>
-        <p>{product.product_description}</p>
-        {mine ? (
+      )} */}
+      <div classname="productinfo">
+        <h3 className="productname" >{product.product_name} </h3>
+        <p className="productprice">{product.product_price}₾ </p>
+        <p className="productpricetext"> an hour</p>
+        <p className="productdescription">{product.product_description}</p>
+        {mine && (
           <button onClick={deleteProduct}>Delete </button>
-        ) : (
-          <Link to={`/product/${product.post_id}`}>See more</Link>
         )}
       </div>
+      </div>
+    </Link>
     </div>
   );
 };

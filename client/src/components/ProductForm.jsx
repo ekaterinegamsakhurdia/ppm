@@ -49,54 +49,58 @@ const ProductForm = ({ onAdd }) => {
   };
 
   return (
-    <div className="card">
-      <h1>List your product</h1>
-      <form onSubmit={handleSubmit} noValidate>
-        <div className="form">
-          <input
-            name="name"
-            class="namebox"
-            placeholder="Product Name"
-            onChange={handleChange}
-          />
-          <input
-            name="price"
-            class="pricebox"
-            placeholder="Price in georgian Lari"
-            onChange={handleChange}
-            type="number"
-            min={0}
-          />
-          <textarea
-            name="description"
-            className="descriptionbox"
-            placeholder="Short Description of your product"
-            onChange={handleChange}
-          />
+    <div className="newproductformpage">
+      <form className="card" onSubmit={handleSubmit} noValidate>
+        <div className="left">
+          <div className="form">
+            <h1 class="list-text">List your product</h1>
+              <input
+                name="name"
+                class="namebox"
+                placeholder="Product Name"
+                onChange={handleChange}
+              />
+              <input
+                name="price"
+                class="pricebox"
+                placeholder="Price for an hour in georgian Lari"
+                onChange={handleChange}
+                type="number"
+                min={0}
+              />
+              <input
+                name="description"
+                className="descriptionbox"
+                placeholder="Short Description of your product"
+                onChange={handleChange}
+              />
 
-          <select name="category" className="category" onChange={handleChange}>
-            <option>Transportation</option>
-            <option>Home Appliances</option>
-            <option>Other</option>
-          </select>
+              <select name="category" className="category" onChange={handleChange}>
+                <option>Transportation</option>
+                <option>Home Appliances</option>
+                <option>Other</option>
+              </select>
+          </div>
+
+          <button className="submitbutton" type="submit">
+          Add Product
+          </button>
+          <p>{errorMessage}</p>
         </div>
 
-        <label className="picture">
-          Upload Image of your product:
-          <input type="file" accept="image/*" onChange={handleImageChange} />
-        </label>
-        {preview && (
-          <img
-            src={preview}
-            alt="Preview"
-            style={{ width: "100%", marginTop: "10px" }}
-          />
-        )}
-
-        <button className="submitbutton" type="submit">
-          Add Product
-        </button>
-        <p>{errorMessage}</p>
+        <div className="picture">
+          <label className="upload-image-text">
+            Upload the image of your product:
+            <input className="image-button" type="file" accept="image/*" onChange={handleImageChange} style={{ color: 'transparent' }} />
+          </label>
+          {preview && (
+            <img className="image-preview"
+              src={preview}
+              alt="Preview"
+              style={{ width: "100%", marginTop: "3px" }}
+            />
+          )}
+        </div>
       </form>
     </div>
   );

@@ -59,6 +59,7 @@ values ($1, $2, $3, $4, $5) RETURNING *
 
     res.status(201).json({ email: email });
   } catch (err) {
+    console.log(err)
     res.status(400).json({ error: err.message });
   }
 });

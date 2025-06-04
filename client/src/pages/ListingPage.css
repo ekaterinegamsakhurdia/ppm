@@ -1,0 +1,15 @@
+.productpage{
+align-self: center;
+}
+.linktotheproduct{
+    width: 100%;
+}
+.products{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%; 
+}
+.type{
+    margin-left:2%;
+    color:#002D72;
+}
