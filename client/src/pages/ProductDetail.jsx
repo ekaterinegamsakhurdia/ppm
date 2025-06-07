@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import PaypalCheckout from "../components/PaypalCheckout";
 
 const ProductDetail = () => {
   const { id } = useParams();
@@ -36,7 +37,14 @@ const ProductDetail = () => {
         <p>{product.last_name}</p>
         <p>{product.phone_number}</p>
       </div>
+
+      <div>
+        <PaypalCheckout price={1.00} />
+      </div>
     </div>
+
+
+
   );
 };
 

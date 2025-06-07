@@ -34,15 +34,22 @@ export const Profile = () => {
                     height="100"
                   />
        </div>
+
         <div className="myinfobox">
-        <div className="myinforow"> <h3>Name - </h3> <p className="myinfo"> {userInfo.first_name}</p></div>
-        <div className="myinforow"> <h3>Last name - </h3> <p className="myinfo">{userInfo.last_name}</p></div>
-        <div className="myinforow"> <h3>Phone number - </h3> <p className="myinfo">{userInfo.phone_number}</p></div>
-        <div className="myinforow"> <h3>Email address - </h3> <p className="myinfo">{userInfo.email }</p></div>
+          <div className="myinforow"> <h3>Name - </h3> <p className="myinfo"> {userInfo.first_name}</p></div>
+          <div className="myinforow"> <h3>Last name - </h3> <p className="myinfo">{userInfo.last_name}</p></div>
+          <div className="myinforow"> <h3>Phone number - </h3> <p className="myinfo">{userInfo.phone_number}</p></div>
+          <div className="myinforow"> <h3>Email address - </h3> <p className="myinfo">{userInfo.email }</p></div>
         </div>
       </div>
-      <div className="mylistings">
-      <h2 >My Listings: </h2>
+      <div>
+        
+      <fieldset className="mylistingsbox">
+      <legend className="mylistings">My Listings</legend>
+      {
+        product.length == 0 && <h3 className="ifempty">You have no products listed for rent</h3>
+      }
+      <div className="products">
       {product.map((p) => (
         <ProductCard
           key={p.post_id}
@@ -52,6 +59,9 @@ export const Profile = () => {
         />
       ))}
       </div>
+      </fieldset>
+      </div>
+      
     </div>
   );
 };

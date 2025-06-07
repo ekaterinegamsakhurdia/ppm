@@ -35,7 +35,9 @@ const ProductCard = ({ product, mine = false, onDelete }) => {
         <p className="productpricetext"> an hour</p>
         <p className="productdescription">{product.product_description}</p>
         {mine && (
-          <button onClick={deleteProduct}>Delete </button>
+              <Link className="linktotheproduct" to="/profile">
+          <button onClick={deleteProduct} className="DeleteButton">Delete </button>
+          </Link>
         )}
       </div>
       </div>

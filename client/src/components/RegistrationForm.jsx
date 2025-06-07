@@ -180,8 +180,8 @@ const RegistrationForm = () => {
           <button type="submit" className="signup-btn">
             Sign Up
           </button>
-          <Link className="nav-link" to="/login">
-            Login page
+          <Link className="link-to-login" to="/login">
+            Back to login page
           </Link>
         </div>
       </form>

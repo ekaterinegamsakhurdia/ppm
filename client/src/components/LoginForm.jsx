@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Kiurent_login.css";
+import s from "./Kiurent_login.module.css";
 import RegistrationForm from "./RegistrationForm";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
@@ -71,53 +71,52 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="login-page">
-      <header className="site-header">
-        <h1 className="site-title">KIU-rent</h1>
-      </header>
+    <div className={s.loginPage}>        
+    <h1 className={s.siteTitle}>KIU-rent</h1>
 
-      <div className="login-container">
+
+      <div className={s.loginContainer}>
         {/* Left: Info Section */}
-        <section className="info-section">
-          <h1 className="uni-logo"> KIU - rent</h1>
-          <p className="platform-description">
+        <section className={s.infoSection}>
+          <h1 className={s.uniLogo}> KIU - rent</h1>
+          <p className={s.platformDescription}>
             Welcome to KIU-rent! Connect with fellow students and rent or list
             items with ease.
           </p>
         </section>
 
         {/* Right: Form Section */}
-        <section className="form-section">
-          <fieldset className="form-fieldset">
-            <legend className="form-legend">Login to Your Account</legend>
-            <form onSubmit={handleSubmit} className="login-form">
-              <label className="input-label">KIU Email:</label>
+        <section className={s.formSection}>
+          <fieldset className={s.formFieldset}>
+            <legend className={s.formLegend}>Login to Your Account</legend>
+            <form onSubmit={handleSubmit} className={s.loginForm}>
+              <label className={s.inputLabel}>KIU Email:</label>
               <input
                 type="email"
                 name="email"
-                className="input-field"
+                className={s.inputField}
                 value={formData.email}
                 onChange={handleChange}
               />
               {errors.email && (
-                <div className="error-message">{errors.email}</div>
+                <div className={s.errorMessage}>{errors.email}</div>
               )}
 
-              <label className="input-label">Password:</label>
+              <label className={s.inputLabel}>Password:</label>
               <input
                 type="password"
                 name="password"
-                className="input-field"
+                className={s.inputField}
                 value={formData.password}
                 onChange={handleChange}
               />
               {errors.password && (
-                <div className="error-message">{errors.password}</div>
+                <div className={s.errorMessage}>{errors.password}</div>
               )}
 
               {/* <Link to="/Homepage" className="signup-link"> */}
               {/* {" "} */}
-              <button type="submit" className="login-button">
+              <button type="submit" className={s.loginButton}>
                 Log In
               </button>
               {/* </Link> */}
@@ -126,9 +125,9 @@ const LoginForm = () => {
         </section>
       </div>
 
-      <footer className="site-footer">
-        <p className="signup-text">
-          <Link to="/signup" className="signup-link">
+      <footer className={s.siteFooter}>
+        <p className={s.signupText}>
+          <Link to="/signup" className={s.signupLink}>
             {" "}
             Don’t have an account?
           </Link>
