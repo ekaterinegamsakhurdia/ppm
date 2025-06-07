@@ -27,7 +27,6 @@ const CategoryPage = ({ products }) => {
     axios
       .get(`http://localhost:3000/posts/${mapCategoryName(type)}`)
       .then((data) => {
-        console.log(data);
         setProducts(data.data.posts);
       })
       .catch((err) => console.log(err));
@@ -37,9 +36,9 @@ const CategoryPage = ({ products }) => {
     <div className="productpage">
       <h2 className="type"> {type} Listings</h2>
       <div className="products">
-      {product.map((p) => (
-        <ProductCard key={p.post_id} product={p} />
-      ))}
+        {product.map((p) => (
+          <ProductCard key={p.post_id} product={p} />
+        ))}
       </div>
     </div>
   );

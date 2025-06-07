@@ -1,67 +1,69 @@
 body.home {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F5F7FA;
-  }
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f7fa;
+}
 
-  .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1rem 2rem;
-  }
-  
-  
-  .logo {
-    font-size:4rem;
-    color:  #002D72;
-    margin: 0;
-    text-decoration: none;
-  }
-  
-  .navbar {
-    display: flex;
-    gap: 30rem;
-  }
-  
-  .nav-link {
-    color: #002D72;
-    text-decoration: none;
-    font-size: 1.2rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-  .findaproduct{
-    color:  #002D72;
-    border-bottom: solid #002D72;
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid #277ff300;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-  .listaproduct{
-        color:  #002D72;
-    border-bottom: solid #002D72;
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
-    border: 2px solid #277ff300;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-  }
-  
-  .nav-link:hover {
-    background-color: #e3f0ff;
-    color: #08085f;
-    text-decoration: underline;
-    border: 2px solid white;
-  }
-  
-  .text{
-    color: #002D72;
-    border-top: 1px solid #002D72;
-    padding: 2%;
-  }
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  max-width: 100vw;
+  align-items: center;
+  padding: 1rem 2rem;
+  border-bottom: 1px solid black;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  font-size: 4rem;
+  color: #002d72;
+  margin: 0;
+  text-decoration: none;
+}
+
+.nav-link {
+  color: #002d72;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #ffffff;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.findaproduct {
+  color: #002d72;
+  border-bottom: solid #002d72;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #277ff300;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+.listaproduct {
+  color: #002d72;
+  border-bottom: solid #002d72;
+  font-size: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid #277ff300;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #e3f0ff;
+  color: #08085f;
+  text-decoration: underline;
+  border: 2px solid white;
+}
+
+.text {
+  color: #002d72;
+  border-top: 1px solid #002d72;
+  padding: 2%;
+}
+
+.navigation {
+  display: flex;
+  gap: 10px;
+}

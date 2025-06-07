@@ -66,15 +66,12 @@ const RegistrationForm = () => {
     e.preventDefault();
     if (validate()) {
       // 👇 this is where you’d send the data (API call, etc.)
-      console.log("Form submitted ✅", formData);
+      // console.log("Form submitted ✅", formData);
       // alert("Registered successfully 🎉 (fake, but we believe in dreams!)");
 
       axios
         .post("http://localhost:3000/register", { ...formData })
         .then((data) => {
-          console.log(data);
-
-          console.log(formData);
           axios
             .post("http://localhost:3000/login", { ...formData })
             .then((data) => {
