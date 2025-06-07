@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import "./ProductForm.css";
 import axios from "axios";
 import { useUser } from "../context/UserProvider";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage'
+import { storage } from '../../firebase'
 
 const ProductForm = ({ onAdd }) => {
   const [formData, setFormData] = useState({
@@ -18,10 +20,16 @@ const ProductForm = ({ onAdd }) => {
   const { id, setId } = useUser();
 
   async function addPost() {
-    axios
-      .post("http://localhost:3000/posts", { ...formData, email: id })
-      .then((data) => setErrorMessage("added product"))
-      .catch((err) => setErrorMessage(err.response.data.error));
+    uploadImageToFirebase(image).then((imageUrl) => { // TODO: Add image url to axios call
+      axios
+        .post("http://localhost:3000/posts", { ...formData, email: id })
+        .then((data) => setErrorMessage("added product"))
+        .catch((err) => setErrorMessage(err.response.data.error));
+    }).catch(err => {
+      setErrorMessage("Error uploading image to storage.")
+    })
+
+    
   }
 
   // const navigate = useNavigate();
@@ -47,6 +55,17 @@ const ProductForm = ({ onAdd }) => {
     setImage(file);
     setPreview(URL.createObjectURL(file));
   };
+
+  const uploadImageToFirebase = async (file) => {
+    console.log(file)
+    if (!file) return null
+
+    const imageRef = ref(storage, `kiurent/${Date.now()}_${file.name}`)
+    await uploadBytes(imageRef, file)
+
+    const url = await getDownloadURL(imageRef)
+    return url
+  }
 
   return (
     <div className="newproductformpage">
