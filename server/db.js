@@ -8,7 +8,10 @@ const pool = new Pool({
   host: process.env.PG_HOST || "localhost",
   port: process.env.PG_PORT || 5432,
   database: process.env.PG_DATABASE || "kiurent",
-  ssl: isProduction ? { rejectUnauthorized: false } : false
+  ssl: isProduction ? { rejectUnauthorized: false } : false,
+  max: 20, // Default is 10
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
 });
 
 module.exports = pool;
