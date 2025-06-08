@@ -85,6 +85,10 @@ input[type="file"]::file-selector-button {
     background-color: #002D72;
     color: white;
   }
+
+  .submitbutton:active{
+    background-color: red;
+  }
   .category{
     height: 50px;
     margin: 2%;
