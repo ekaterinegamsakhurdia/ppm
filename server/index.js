@@ -162,6 +162,11 @@ app.get("/post/:id", async (req, res) => {
 app.get("/profile", async (req, res) => {
   try {
     const email = req.headers["authorization"];
+    if (!email) {
+      return res.status(401).json({ error: "Missing authorization header" });
+    }
+
+
     const posts = await pool.query(
       `
         select *
@@ -177,6 +182,10 @@ app.get("/profile", async (req, res) => {
       where email = $1`,
       [email]
     );
+
+    if (user_info.rows.length === 0) {
+      return res.status(404).json({ error: "User not found" });
+    }
 
     const orders = await pool.query(
       `select o.rental_start, o.rental_duration_hours, 
