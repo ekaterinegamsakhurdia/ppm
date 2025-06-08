@@ -22,17 +22,17 @@ const HomePage = () => {
           <Link to="/products/transportation" className="product-card">
 
               <h3 className="product-title">Transportation</h3>
-              <img src="./public/bike.jpg" width="270" />
+              <img src="/bike.jpg" width="270" />
           </Link>
 
           <Link to="/products/appliances" className="product-card">
               <h3 className="product-title">Home Appliances</h3>
-              <img src="./public/airfryer1.jpg" width="300" />
+              <img src="/airfryer1.jpg" width="300" />
           </Link>
 
           <Link to="/products/other" className="product-card">
               <h3 className="product-title">Other Goods</h3>
-              <img src="./public/other.jpg" width="300" />
+              <img src="/other.jpg" width="300" />
           </Link>
         </div>
       </fieldset>
@@ -69,7 +69,7 @@ const HomePage = () => {
               <div className="icon">
                 <img
                   className="mailicon"
-                  src="./public/mail.png"
+                  src="/mail.png"
                   width="20"
                   height="20"
                 />
@@ -83,7 +83,7 @@ const HomePage = () => {
               <div className="icon">
                 <img
                   className="telicon"
-                  src="./public/phone-call.png"
+                  src="/phone-call.png"
                   width="20"
                   height="20"
                 />

@@ -32,7 +32,7 @@ export const Profile = () => {
        <div>
           <img
                     className="profileicon"
-                    src="./public/user.png"
+                    src="/user.png"
                     width="100"
                     height="100"
                   />
