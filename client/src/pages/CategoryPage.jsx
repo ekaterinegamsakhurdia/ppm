@@ -27,7 +27,7 @@ const CategoryPage = ({ products }) => {
     axios
       .get(`http://localhost:3000/posts/${mapCategoryName(type)}`)
       .then((data) => {
-        console.log(data);
+        console.log("FETCHED", data);
         setProducts(data.data.posts);
       })
       .catch((err) => console.log(err));

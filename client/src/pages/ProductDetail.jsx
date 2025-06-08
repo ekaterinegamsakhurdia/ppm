@@ -1,50 +1,157 @@
 import { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import PaypalCheckout from "../components/PaypalCheckout";
+import { useUser } from "../context/UserProvider";
+import  "./ProductDetail.css";
 
 const ProductDetail = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState(null);
-  console.log(id);
+  const [product, setProduct] = useState({});
+  const [isMyPost, setIsMyPost] = useState(false);
+  const [previousOrders, setPreviousOrders] = useState([]);
+  const [upcomingOrders, setUpcomingOrders] = useState([]);
+  const [rentalStart, setRentalStart] = useState(new Date());
+  const [rentalDurationHours, setRentalDurationHours] = useState(0);
+  const [errorMessage, setErrorMessage] = useState("");
+  const { id: user_email } = useUser();
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/post/${id}`)
+      .get(`http://localhost:3000/post/${id}`, {
+        headers: { Authorization: user_email },
+      })
       .then((data) => {
-        console.log(data);
-        console.log(data.data.post);
         setProduct(data.data.post);
+        setIsMyPost(data.data.isMyPost);
+        setPreviousOrders(data.data.previousOrders);
+        setUpcomingOrders(data.data.upcomingOrders);
       })
       .catch((err) => console.log(err));
   }, [id]);
+
+  function addOrder(e) {
+    e.preventDefault();
+    if (!+rentalDurationHours || +rentalDurationHours < 0) {
+      setErrorMessage("invalid duration");
+      return;
+    }
+
+    if (!new Date(rentalStart)) {
+      setErrorMessage("invalid start date");
+      return;
+    }
+
+    const body = {
+      post_id: id,
+      rental_start: rentalStart,
+      rental_duration_hours: rentalDurationHours,
+    };
+    axios
+      .post(`http://localhost:3000/orders`, body, {
+        headers: { Authorization: user_email },
+      })
+      .then((data) => {
+        // post_id, rental_start, rental_duration_hours
+        const totalCost = data.data.post.calculated_price;
+        setErrorMessage(`Order added: total cost:  ${totalCost}`);
+        setRentalDurationHours(0);
+      })
+      .catch((err) => console.log(err));
+  }
 
   if (!product) return <p>Product not found 😢</p>;
 
   return (
     <div>
-      <img src={product.photo} alt="" />
-      <h2>{product.product_name}</h2>
-      <p>{product.product_price}₾</p>
-      <p>{product.product_description}</p>
-      <p>Category: {product.product_type}</p>
-
-      <div>
-        <h1>Publisher info</h1>
-        <p>{product.email}</p>
-        <p>{product.first_name}</p>
-        <p>{product.last_name}</p>
-        <p>{product.phone_number}</p>
+<div className="productfullinfo">
+  <div className="productandownerinfo">
+      {/* <div className="productsinfo">
+        <img src={product.photo} alt="" />
+        <h2>{product.product_name}</h2>
+        <p>{product.product_price}₾ an hour </p>
+        <h2 className="description">Description:</h2>
+        <p className="description">{product.product_description}</p>
+        <p>Category: {product.product_type}</p>
+      </div> */}
+      {!isMyPost &&<div className="publisherinfo">
+        <h2>Additional info:</h2>
+        <p className="bookingtext">After you book the item, please contact the owner to specify pick-up location and other details on the following email or phone number:</p>
+        <p><h4>Email Address:</h4> {product.email}</p>
+        <p> <h4>Phone Number: </h4> {product.phone_number}</p>
+        <p> <h4>First Name: </h4>{product.first_name}</p>
+        <p> <h4>Last Name: </h4>{product.last_name}</p>
+      </div>}
       </div>
+      {isMyPost && (
+        <>
+        {upcomingOrders.length>0 &&
+          <div className="upcoming">
+            <fieldset className="orderboxupcomigandold">
+          <legend>Upcoming</legend>
+          {upcomingOrders.map((order) => (
+            <>
+              <p> <h4>Booked by: </h4>{order.user_email} </p>
+              <p> <h4>Start time: </h4>{order.rental_start}</p>
+              <p> <h4>End time: </h4>{order.calculated_end_time}</p>
+              <p> <h4>Duration: </h4>{order.rental_duration_hours} hours</p>
+              <p> <h4>Price: </h4>{order.calculated_price}</p>
+            </>
+          ))}
+          </fieldset>
+          </div>}
+          {previousOrders.length>0 &&
+          <div className="old">
+            <fieldset className="orderboxupcomigandold">
+          <legend>Previous</legend>
+          {previousOrders.map((order) => (
+            <>
+              <p>Booked by {order.user_email} </p>
+              <p>Start time: {order.rental_start}</p>
+              <p>End time: {order.calculated_end_time}</p>
+              <p>Duration: {order.rental_duration_hours}</p>
+              <p>Price: {order.calculated_price}</p>
+            </>
+          ))}
+          </fieldset>
+          </div>
+          }
+        </>
+      )}
 
-      <div>
-        <PaypalCheckout price={1.00} />
+      {!isMyPost && (
+        <fieldset className="orderbox">
+          <legend>Order now</legend>
+          <form onSubmit={(e) => addOrder(e)}>
+            <div className="ordering">
+            <label className="input-label">Pick up date and time</label>
+            <input
+              type="datetime-local"
+              name="startTime"
+              className="input-field"
+              value={rentalStart}
+              onChange={(e) => setRentalStart(e.target.value)}
+            />
+            <label className="input-label">Rental duration in hours</label>
+
+            <input
+              type="int"
+              name="duration"
+              min={0}
+              className="input-field"
+              value={rentalDurationHours}
+              onChange={(e) => setRentalDurationHours(e.target.value)}
+            />
+            <Link to="/checkout">
+            <button type="submit" className="submit-button">Add order</button>
+            </Link>
+            </div>
+          </form>
+          {errorMessage}
+        </fieldset>
+      )}
       </div>
     </div>
-
-
-
   );
 };
 

@@ -17,18 +17,13 @@
     background-color: #002D72;
     background-size: cover;
     background-repeat: no-repeat;
-  }
-  
-  /* HEADER */
-  .siteTitle {
     text-align: center;
-    margin-top: 2%;
-    margin-bottom: 3%;
   }
   
-  .siteTitle {
+  .site-title {
+    margin-bottom: 3%;
     font-weight: bold;
-    font-size: 400%;
+    font-size: 600%;
     color: #f8f9fa;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   }
@@ -136,24 +131,18 @@
     background-color: #1b3e6b5c;
   }
   
-  /* FOOTER */
-  .siteFooter {
-    text-align: center;
-    margin-top: 3%;
-  }
   
   .signupLink {
     color: white;
     text-decoration: none;
     font-weight: bold;
+    text-align: center;
+    margin-left: 45%;
+    margin-top: 3%;
+    margin-bottom: 3%;
   }
   
   .signupLink:hover {
     color: rgb(20, 149, 255);
-  }
-  
-  .signupText {
-    margin-top: 1rem;
-    font-size: 130%;
   }
   

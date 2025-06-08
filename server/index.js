@@ -59,7 +59,6 @@ values ($1, $2, $3, $4, $5) RETURNING *
 
     res.status(201).json({ email: email });
   } catch (err) {
-    console.log(err)
     res.status(400).json({ error: err.message });
   }
 });
@@ -68,7 +67,6 @@ app.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    console.log(email, password);
     const result = await pool.query(
       "select * from users where email = $1 and password = $2",
       [email, password]
@@ -86,7 +84,6 @@ app.post("/login", async (req, res) => {
 // get all posts
 app.get("/posts", async (req, res) => {
   try {
-    console.log(req);
     const posts = await pool.query("select * from posts");
     res.status(200).json({ posts: posts.rows });
   } catch (err) {
@@ -98,7 +95,6 @@ app.get("/posts", async (req, res) => {
 app.get("/posts/:type", async (req, res) => {
   try {
     const { type } = req.params;
-    console.log(type);
     const posts = await pool.query(
       "select * from posts where product_type = $1",
       [type]
@@ -113,6 +109,7 @@ app.get("/posts/:type", async (req, res) => {
 // get a specific post (by id)
 app.get("/post/:id", async (req, res) => {
   try {
+    const email = req.headers["authorization"];
     const { id } = req.params;
     const post = await pool.query(
       `
@@ -125,21 +122,51 @@ app.get("/post/:id", async (req, res) => {
       [id]
     );
 
+    let orders = [];
+
+    const isMyPost = post.rows[0].user_email === email;
+    if (isMyPost) {
+      orders = (
+        await pool.query(
+          `
+        select *
+        from orders
+        where post_id = $1
+`,
+          [id]
+        )
+      ).rows;
+    }
+
     const imageBuffer = post.rows[0].photo;
     const base64Image = imageBuffer
       ? imageBuffer.toString("base64")
       : imageBuffer;
 
-    res.status(200).json({ post: { ...post.rows[0], photo: base64Image } });
+    const now = new Date();
+    const previousOrders = orders.filter(
+      (o) => new Date(o.calculated_end_time) <= now
+    );
+    const upcomingOrders = orders.filter(
+      (o) => new Date(o.calculated_end_time) > now
+    );
+
+    res.status(200).json({
+      post: { ...post.rows[0], photo: base64Image },
+      isMyPost: isMyPost,
+      previousOrders: previousOrders,
+      upcomingOrders: upcomingOrders,
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
 });
 
-// get my posts
+// ra davjavshne ro chandes
+// tviton chem postze gadasvlisas chandes vin dajavshna (momavalshi racaa) da history
 app.get("/profile", async (req, res) => {
   try {
-    const { email } = req.query;
+    const email = req.headers["authorization"];
     const posts = await pool.query(
       `
         select *
@@ -156,14 +183,23 @@ app.get("/profile", async (req, res) => {
       [email]
     );
 
-    const formattedPosts = posts.rows.map((post) => ({
-      ...post,
-      photo: post.photo ? post.photo.toString("base64") : null,
-    }));
+    const orders = await pool.query(
+      `select o.rental_start, o.rental_duration_hours, 
+        o.calculated_price, o.calculated_end_time, o.order_created_at,
+        p.*
+        from orders o
+        inner join posts p
+        on p.post_id = o.post_id
+        where o.user_email = $1
+        `,
+      [email]
+    );
 
-    res
-      .status(200)
-      .json({ posts: formattedPosts, user_info: user_info.rows[0] });
+    res.status(200).json({
+      posts: posts.rows,
+      user_info: user_info.rows[0],
+      orders: orders.rows,
+    });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -172,17 +208,32 @@ app.get("/profile", async (req, res) => {
 // create a new post
 app.post("/posts", async (req, res) => {
   try {
-    const { email, name, price, image, description, category } = req.body;
+    const { email, name, price, description, category, image_url } = req.body;
+    console.log(category)
+    const status = validatePostData(name, price, description, category);
+    if (status !== "valid") return res.status(400).json({ error: status });
+    const post = await pool.query(
+      `INSERT INTO posts (user_email, product_name, product_price, product_description, product_type, image_url) VALUES
+($1, $2, $3, $4, $5, $6) RETURNING *`,
+      [email, name, price, description, category, image_url]
+    );
+    res.status(200).json({ post: post.rows[0] });
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({ error: err.message });
+  }
+});
 
-    const status = validatePostData(name, price, image, description, category);
-    if (status !== "valid") res.status(400).json({ error: status });
+app.post("/orders", async (req, res) => {
+  try {
+    const user_email = req.headers["authorization"];
+    const { post_id, rental_start, rental_duration_hours } = req.body;
 
     const post = await pool.query(
-      `INSERT INTO posts (user_email, product_name, product_price, product_description, product_type, photo) VALUES
-($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [email, name, price, description, category, image || "NULL"]
+      `INSERT INTO orders (user_email, post_id, rental_start, rental_duration_hours)
+           VALUES ($1, $2, $3, $4) RETURNING *`,
+      [user_email, post_id, rental_start, rental_duration_hours]
     );
-
     res.status(200).json({ post: post.rows[0] });
   } catch (err) {
     res.status(400).json({ error: err.message });
@@ -205,7 +256,7 @@ app.listen(PORT, (error) => {
   else console.log("Error occurred, server can't start", error);
 });
 
-function validatePostData(name, price, image, description, category) {
+function validatePostData(name, price, description, category) {
   const validCategories = ["Transportation", "Home Appliances", "Other"];
   if (!name.trim()) return "name field can't be empty";
   if (!description.trim()) return "description field can't be empty";

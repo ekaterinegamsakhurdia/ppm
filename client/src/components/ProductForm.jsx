@@ -21,10 +21,12 @@ const ProductForm = ({ onAdd }) => {
 
   async function addPost() {
     uploadImageToFirebase(image).then((imageUrl) => { // TODO: Add image url to axios call
+      console.log("UPLOADED IMAGE URL:", imageUrl)
       axios
-        .post("http://localhost:3000/posts", { ...formData, email: id })
-        .then((data) => setErrorMessage("added product"))
-        .catch((err) => setErrorMessage(err.response.data.error));
+        .post("http://localhost:3000/posts", { ...formData, email: id, image_url: imageUrl })
+        .then((data) => setErrorMessage("Success! Your listing has been published."))
+        .catch((err) => {console.log(err);setErrorMessage(err.response.data.error)});
+        
     }).catch(err => {
       setErrorMessage("Error uploading image to storage.")
     })
@@ -108,6 +110,7 @@ const ProductForm = ({ onAdd }) => {
         </div>
 
         <div className="picture">
+          <p className="comissiontext">Kiurent retains a 10% commission from every completed rental to keep the platform running smoothly.</p>
           <label className="upload-image-text">
             Upload the image of your product:
             <input className="image-button" type="file" accept="image/*" onChange={handleImageChange} style={{ color: 'transparent' }} />

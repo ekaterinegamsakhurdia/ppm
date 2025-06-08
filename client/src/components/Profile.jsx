@@ -6,15 +6,18 @@ import "./Profile.css"
 export const Profile = () => {
   const { id } = useUser();
   const [product, setProducts] = useState([]);
+  const [orders, setOrders] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/profile`, { params: { email: id } })
+      .get(`http://localhost:3000/profile`, {
+        headers: { Authorization: id },
+      })
       .then((data) => {
         setProducts(data.data.posts);
         setUserInfo(data.data.user_info);
-        console.log(data.data.user_info);
+        setOrders(data.data.orders);
       })
       .catch((err) => console.log(err));
   }, [id]);
@@ -58,10 +61,31 @@ export const Profile = () => {
           onDelete={handleDelete}
         />
       ))}
+
+
       </div>
       </fieldset>
       </div>
       
+      <fieldset className="mylistingsbox">
+        <legend className="mylistings">
+          My Orders
+        </legend>
+         {
+        orders.length == 0 && <h3 className="ifempty">You have no products ordered for now</h3>
+      }
+      <div className="products">
+        {orders.map((p) => (
+          <ProductCard
+            key={p.post_id}
+            product={p}
+            order={p}
+            onDelete={handleDelete}
+          />
+          
+        ))}
+        </div>
+      </fieldset>
     </div>
   );
 };

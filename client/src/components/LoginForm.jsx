@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import s from "./Kiurent_login.module.css";
-import RegistrationForm from "./RegistrationForm";
+import "./Kiurent_login.css";
+// import RegistrationForm from "./RegistrationForm";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserProvider";
 import axios from "axios";
@@ -70,71 +70,64 @@ const LoginForm = () => {
     }
   };
 
-  return (
-    <div className={s.loginPage}>        
-    <h1 className={s.siteTitle}>KIU-rent</h1>
-
-
-      <div className={s.loginContainer}>
-        {/* Left: Info Section */}
-        <section className={s.infoSection}>
-          <h1 className={s.uniLogo}> KIU - rent</h1>
-          <p className={s.platformDescription}>
-            Welcome to KIU-rent! Connect with fellow students and rent or list
-            items with ease.
-          </p>
-        </section>
-
-        {/* Right: Form Section */}
-        <section className={s.formSection}>
-          <fieldset className={s.formFieldset}>
-            <legend className={s.formLegend}>Login to Your Account</legend>
-            <form onSubmit={handleSubmit} className={s.loginForm}>
-              <label className={s.inputLabel}>KIU Email:</label>
-              <input
-                type="email"
-                name="email"
-                className={s.inputField}
-                value={formData.email}
-                onChange={handleChange}
-              />
-              {errors.email && (
-                <div className={s.errorMessage}>{errors.email}</div>
-              )}
-
-              <label className={s.inputLabel}>Password:</label>
-              <input
-                type="password"
-                name="password"
-                className={s.inputField}
-                value={formData.password}
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <div className={s.errorMessage}>{errors.password}</div>
-              )}
-
-              {/* <Link to="/Homepage" className="signup-link"> */}
-              {/* {" "} */}
-              <button type="submit" className={s.loginButton}>
-                Log In
-              </button>
-              {/* </Link> */}
-            </form>
-          </fieldset>
-        </section>
-      </div>
-
-      <footer className={s.siteFooter}>
-        <p className={s.signupText}>
-          <Link to="/signup" className={s.signupLink}>
-            {" "}
-            Don’t have an account?
-          </Link>
+return (
+  <div className="loginPage">        
+    <h1 className="site-title">KIU-rent</h1>
+    <div className="loginContainer">
+      <section className="infoSection">
+        <h1 className="uniLogo"> KIU - rent</h1>
+        <p className="platformDescription">
+          Welcome to KIU-rent! Connect with fellow students and rent or list
+          items with ease.
         </p>
-      </footer>
+      </section>
+
+      {/* Right: Form Section */}
+      <section className="formSection">
+        <fieldset className="formFieldset">
+          <legend className="formLegend">Login to Your Account</legend>
+          <form onSubmit={handleSubmit} className="loginForm">
+            <label className="inputLabel">KIU Email:</label>
+            <input
+              type="email"
+              name="email"
+              className="inputField"
+              value={formData.email}
+              onChange={handleChange}
+            />
+            {errors.email && (
+              <div className="errorMessage">{errors.email}</div>
+            )}
+
+            <label className="inputLabel">Password:</label>
+            <input
+              type="password"
+              name="password"
+              className="inputField"
+              value={formData.password}
+              onChange={handleChange}
+            />
+            {errors.password && (
+              <div className="errorMessage">{errors.password}</div>
+            )}
+
+            <button type="submit" className="loginButton">
+              Log In
+            </button>
+          </form>
+        </fieldset>
+      </section>
+      
     </div>
-  );
-};
+
+    
+      <p className="signupText">
+        <Link to="/signup" className="signupLink">
+          Don’t have an account?
+        </Link>
+      </p>
+  </div>
+);
+}
 
 export default LoginForm;

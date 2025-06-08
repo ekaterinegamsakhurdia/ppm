@@ -1,0 +1,83 @@
+.productfullinfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+.productandownerinfo{
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.publisherinfo{
+    color: #002D72;
+}
+
+.bookingtext{
+    border-bottom: 1px solid #002D72;
+    padding-bottom: 2%;
+    margin-bottom: 3%;
+    margin-top: 1%;
+}
+
+.ordering{
+    display: flex;
+    flex-direction: column;
+}
+.input-field{
+margin-top: 1%;
+  padding: 2%;
+  background: white;
+  color: #002D72;
+  border: 1px solid #002D72;
+  border-radius: 4px;
+  cursor: pointer;
+}
+label{
+      color: #002D72;
+      margin-top: 5%;
+}
+.submit-button{
+    padding: 3%;
+    margin-top: 5%;
+    border-radius: 30px ;    
+    background-color: #002D72;
+    color: white;
+  }
+  .submit-button:hover{
+    background-color: #002e72b0;
+  }
+  .orderbox{
+    padding: 2%;
+    width: 40%;
+    border: 1px solid #002D72;
+    border-radius: 15px;
+  }
+
+  .upcomingandold{
+    padding: 2%;
+    width: 30%;
+    border: 1px solid #002D72;
+    border-radius: 15px;
+  }
+  legend{
+    padding-left: 3%;
+    padding-right: 3%;
+    color: #002D72;
+    font-weight: bolder;
+  }
+  h4{
+    padding-right: 1%;
+  }
+  .description {
+    color: #002D72;
+    font-size: x-large;
+    margin-bottom: 2%;
+  }
+  .orderboxupcomigandold{
+    padding: 5%;
+    width: 100%;
+    border: 1px solid #002D72;
+    border-radius: 15px;
+    color: #002D72;
+  }
