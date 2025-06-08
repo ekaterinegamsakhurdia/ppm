@@ -161,9 +161,6 @@ app.get("/post/:id", async (req, res) => {
 // tviton chem postze gadasvlisas chandes vin dajavshna (momavalshi racaa) da history
 app.get("/profile", async (req, res) => {
   try {
-    console.log("-----------------------------------------------")
-    console.log("-----------------------------------------------")
-    console.log("-----------------------------------------------")
     const email = req.headers["authorization"];
     if (!email) {
       return res.status(401).json({ error: "Missing authorization header" });
