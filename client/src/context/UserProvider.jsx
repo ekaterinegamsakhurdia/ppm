@@ -9,6 +9,8 @@ export function useUser() {
   return useContext(UserContext);
 }
 
+const BASEURL = import.meta.env.VITE_REACT_APP_BACKEND_URL|| "http://localhost:3000";
+
 const UserProvider = ({ children }) => {
   const [id, setId, removeId] = useStorage(preffix + "id", null, localStorage);
 
@@ -20,6 +22,7 @@ const UserProvider = ({ children }) => {
     id,
     setId,
     logOut,
+    BASEURL
   };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

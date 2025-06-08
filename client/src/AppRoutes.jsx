@@ -10,6 +10,7 @@ import CategoryPage from "./pages/CategoryPage";
 import MainLayout from "./components/MainLayout";
 import { Profile } from "./components/Profile";
 import ErrorPage from "./components/ErrorPage";
+import PaypalCheckout from "./components/PaypalCheckout";
 
 const AppRoutes = () => {
   return (
@@ -23,8 +24,9 @@ const AppRoutes = () => {
         <Route path="/product/:id" element={<ProductDetail />} />
         <Route path="/products/:type" element={<CategoryPage />} />
         <Route path="/profile" element={<Profile />} />
-      </Route>
+        <Route path="/checkout" element={<PaypalCheckout/>}/>
       <Route path="*" element={<ErrorPage />} />
+      </Route>
     </Routes>
   );
 };

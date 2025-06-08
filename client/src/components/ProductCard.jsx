@@ -1,12 +1,15 @@
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./ProductCard.css";
+import { useUser } from "../context/UserProvider";
 
 const ProductCard = ({ product, mine = false, onDelete, order = null }) => {
   console.log(order);
+  const {BASEURL} = useUser();
+
   function deleteProduct() {
     axios
-      .delete(`http://localhost:3000/posts/${product.post_id}`)
+      .delete(`${BASEURL}/posts/${product.post_id}`)
       .then((_) => onDelete(product.post_id))
       .catch((e) => console.log(e));
   }

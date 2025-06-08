@@ -5,7 +5,7 @@ import { useUser } from "../context/UserProvider";
 import { Link, useNavigate } from "react-router-dom";
 
 const RegistrationForm = () => {
-  const { setId } = useUser();
+  const { setId, BASEURL } = useUser();
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     first_name: "",
@@ -13,6 +13,7 @@ const RegistrationForm = () => {
     phone: "",
     email: "",
     password: "",
+    card_number: "",
     status: [],
   });
 
@@ -70,13 +71,13 @@ const RegistrationForm = () => {
       // alert("Registered successfully 🎉 (fake, but we believe in dreams!)");
 
       axios
-        .post("http://localhost:3000/register", { ...formData })
+        .post(`${BASEURL}/register`, { ...formData })
         .then((data) => {
           console.log(data);
 
           console.log(formData);
           axios
-            .post("http://localhost:3000/login", { ...formData })
+            .post(`${BASEURL}/login`, { ...formData })
             .then((data) => {
               setId(data.data.email);
               navigate("/");
@@ -135,6 +136,16 @@ const RegistrationForm = () => {
             value={formData.email}
             onChange={handleChange}
           />
+          {errors.email && <div className="error-message">{errors.email}</div>}
+{/* 
+          <label className="form-label">Card Number</label>
+          <input
+            type="text"
+            className="form-input"
+             name="card_number"
+            value={formData.card_number}
+            onChange={handleChange}
+          /> */}
           {errors.email && <div className="error-message">{errors.email}</div>}
 
           <label className="form-label">Password</label>

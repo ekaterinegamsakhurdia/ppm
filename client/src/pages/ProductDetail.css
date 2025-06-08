@@ -13,6 +13,16 @@
     color: #002D72;
 }
 
+.cancel-button{
+    padding: 3%;
+    border-radius: 30px ;    
+    background-color: #002D72;
+    color: white;
+}
+  .cancel-button:hover{
+    background-color: #002e72b0;
+  }
+
 .bookingtext{
     border-bottom: 1px solid #002D72;
     padding-bottom: 2%;

@@ -17,13 +17,13 @@ const ProductForm = ({ onAdd }) => {
 
   const [errorMessage, setErrorMessage] = useState("");
 
-  const { id, setId } = useUser();
+  const { id, setId, BASEURL } = useUser();
 
   async function addPost() {
     uploadImageToFirebase(image).then((imageUrl) => { // TODO: Add image url to axios call
       console.log("UPLOADED IMAGE URL:", imageUrl)
       axios
-        .post("http://localhost:3000/posts", { ...formData, email: id, image_url: imageUrl })
+        .post(`${BASEURL}/posts`, { ...formData, email: id, image_url: imageUrl })
         .then((data) => setErrorMessage("Success! Your listing has been published."))
         .catch((err) => {console.log(err);setErrorMessage(err.response.data.error)});
         

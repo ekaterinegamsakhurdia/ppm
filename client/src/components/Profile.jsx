@@ -4,14 +4,14 @@ import { useUser } from "../context/UserProvider";
 import axios from "axios";
 import "./Profile.css"
 export const Profile = () => {
-  const { id } = useUser();
+  const { id, BASEURL } = useUser();
   const [product, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
   const [userInfo, setUserInfo] = useState([]);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/profile`, {
+      .get(`${BASEURL}0/profile`, {
         headers: { Authorization: id },
       })
       .then((data) => {

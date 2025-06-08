@@ -7,7 +7,7 @@ import axios from "axios";
 import { useEffect } from "react";
 
 const LoginForm = () => {
-  const { id, setId } = useUser();
+  const { id, setId, BASEURL } = useUser();
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -60,7 +60,7 @@ const LoginForm = () => {
       console.log("Form submitted:", formData);
       // put login logic or redirect here
       axios
-        .post("http://localhost:3000/login", { ...formData })
+        .post(`${BASEURL}/login`, { ...formData })
         .then((data) => {
           logIn(data.data.email);
         })

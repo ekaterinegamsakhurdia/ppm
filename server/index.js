@@ -9,11 +9,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 
-const CLIENTURL =
-  process.env.NODE_ENV === "production"
-    ? "https://kiurent.netlify.app"
-    : "http://localhost:5173";
-
+const CLIENTURL =process.env.CLIENT_URL || "http://localhost:5173";
 app.use(
   cors({
     origin: CLIENTURL,
@@ -30,8 +26,7 @@ app.get("/", (req, res) => {
 app.post("/register", async (req, res) => {
   try {
     // todo encrypt password
-
-    const { first_name, last_name, phone, email, password, status } = req.body;
+    const { first_name, last_name, phone, email, password, status, card_number } = req.body;
     const validData = validateUser(
       first_name,
       last_name,
@@ -44,10 +39,10 @@ app.post("/register", async (req, res) => {
 
     const result = await pool.query(
       `
-        insert into users(first_name, last_name, phone_number, email, password) 
-values ($1, $2, $3, $4, $5) RETURNING *
+        insert into users(first_name, last_name, phone_number, email, password, card_number) 
+values ($1, $2, $3, $4, $5, $6) RETURNING *
         `,
-      [first_name, last_name, phone, email, password]
+      [first_name, last_name, phone, email, password, card_number]
     );
 
     status.forEach(async (s) => {
@@ -239,6 +234,20 @@ app.post("/orders", async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
+app.delete("/orders/:orderId", async (req, res) => {
+  try {
+    const {orderId} = req.params
+    const post = await pool.query(
+      `DELETE FROM orders WHERE order_id = $1`,
+      [orderId]
+    );
+    res.status(200).json({ message: "success"});
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+})
+
 
 app.delete("/posts/:id", async (req, res) => {
   try {

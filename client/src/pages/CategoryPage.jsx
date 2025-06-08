@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import "./ListingPage.css";
+import { useUser } from "../context/UserProvider";
 
 const CategoryPage = ({ products }) => {
   const { type } = useParams();
 
+  const {BASEURL} = useUser();
+  
   const [product, setProducts] = useState([]);
 
   useEffect(() => {
@@ -25,7 +28,7 @@ const CategoryPage = ({ products }) => {
     };
 
     axios
-      .get(`http://localhost:3000/posts/${mapCategoryName(type)}`)
+      .get(`${BASEURL}/posts/${mapCategoryName(type)}`)
       .then((data) => {
         console.log("FETCHED", data);
         setProducts(data.data.posts);
