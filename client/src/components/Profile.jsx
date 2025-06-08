@@ -11,7 +11,7 @@ export const Profile = () => {
 
   useEffect(() => {
     axios
-      .get(`${BASEURL}0/profile`, {
+      .get(`${BASEURL}/profile`, {
         headers: { Authorization: id },
       })
       .then((data) => {
