@@ -3,13 +3,11 @@
     flex-direction: row;
     justify-content: space-around;
 }
-.productandownerinfo{
+.publisherinfo{
     display: flex;
     flex-direction: column;
-    width: 35%;
-}
-
-.publisherinfo{
+    width: 40%;
+    justify-content: center;
     color: #002D72;
 }
 
@@ -29,6 +27,11 @@
     margin-bottom: 3%;
     margin-top: 1%;
 }
+
+.upcomingorder{
+  margin: 7%;
+}
+
 
 .ordering{
     display: flex;
@@ -66,9 +69,9 @@ label{
 
   .upcomingandold{
     padding: 2%;
-    width: 30%;
     border: 1px solid #002D72;
     border-radius: 15px;
+    width: 140%;
   }
   legend{
     padding-left: 3%;

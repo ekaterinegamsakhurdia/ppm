@@ -22,10 +22,11 @@ const ProductForm = ({ onAdd }) => {
   async function addPost() {
     uploadImageToFirebase(image).then((imageUrl) => { // TODO: Add image url to axios call
       console.log("UPLOADED IMAGE URL:", imageUrl)
+      setErrorMessage("Creating post...")
       axios
         .post(`${BASEURL}/posts`, { ...formData, email: id, image_url: imageUrl })
         .then((data) => setErrorMessage("Success! Your listing has been published."))
-        .catch((err) => {console.log(err);setErrorMessage(err.response.data.error)});
+        .catch((err) => {console.log(err);setErrorMessage("Couldn't add post")});
         
     }).catch(err => {
       setErrorMessage("Error uploading image to storage.")

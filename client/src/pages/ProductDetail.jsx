@@ -91,8 +91,7 @@ const ProductDetail = () => {
   return (
     <div>
       <div className="productfullinfo">
-        <div className="productandownerinfo">
-          {!isMyPost && (
+          {(
             <div className="publisherinfo">
               <h2>Additional info:</h2>
               <p className="bookingtext">
@@ -104,7 +103,6 @@ const ProductDetail = () => {
               <p><h4>Last Name: </h4>{product.last_name}</p>
             </div>
           )}
-        </div>
 
         {isMyPost && (
           <>
@@ -113,33 +111,18 @@ const ProductDetail = () => {
                 <fieldset className="orderboxupcomigandold">
                   <legend>Upcoming</legend>
                   {upcomingOrders.map((order) => (
-                    <>
+                    <div className="upcomingorder">
                       <p><h4>Booked by: </h4>{order.user_email}</p>
                       <p><h4>Start time: </h4>{order.rental_start}</p>
                       <p><h4>End time: </h4>{order.calculated_end_time}</p>
                       <p><h4>Duration: </h4>{order.rental_duration_hours} hours</p>
                       <p><h4>Price: </h4>{order.calculated_price}</p>
-                    </>
+                    </div>
                   ))}
                 </fieldset>
               </div>
             )}
-            {previousOrders.length > 0 && (
-              <div className="old">
-                <fieldset className="orderboxupcomigandold">
-                  <legend>Previous</legend>
-                  {previousOrders.map((order) => (
-                    <>
-                      <p>Booked by {order.user_email}</p>
-                      <p>Start time: {order.rental_start}</p>
-                      <p>End time: {order.calculated_end_time}</p>
-                      <p>Duration: {order.rental_duration_hours}</p>
-                      <p>Price: {order.calculated_price}</p>
-                    </>
-                  ))}
-                </fieldset>
-              </div>
-            )}
+
           </>
         )}
 

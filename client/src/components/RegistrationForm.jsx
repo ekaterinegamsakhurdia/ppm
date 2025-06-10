@@ -18,6 +18,7 @@ const RegistrationForm = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("")
 
   const emailPattern = /^[a-zA-Z0-9._%+-]+@kiu\.edu\.ge$/;
 
@@ -69,22 +70,20 @@ const RegistrationForm = () => {
       // 👇 this is where you’d send the data (API call, etc.)
       console.log("Form submitted ✅", formData);
       // alert("Registered successfully 🎉 (fake, but we believe in dreams!)");
-
+      setErrorMessage("Creating account...")
       axios
         .post(`${BASEURL}/register`, { ...formData })
         .then((data) => {
-          console.log(data);
 
-          console.log(formData);
           axios
             .post(`${BASEURL}/login`, { ...formData })
             .then((data) => {
               setId(data.data.email);
               navigate("/");
             })
-            .catch((err) => console.log(err));
+            .catch((err) => setErrorMessage("Could not Log in"));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setErrorMessage("Could not Register"));
     }
   };
 
@@ -191,6 +190,7 @@ const RegistrationForm = () => {
           <button type="submit" className="signup-btn">
             Sign Up
           </button>
+          <p style={{textAlign: "center"}}>{errorMessage}</p>
           <Link className="link-to-login" to="/login">
             Back to login page
           </Link>

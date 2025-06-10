@@ -9,6 +9,7 @@ import { useEffect } from "react";
 const LoginForm = () => {
   const { id, setId, BASEURL } = useUser();
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("")
 
   const [formData, setFormData] = useState({
     email: "",
@@ -58,13 +59,15 @@ const LoginForm = () => {
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
       console.log("Form submitted:", formData);
+      setErrorMessage("Logging in...")
+      
       // put login logic or redirect here
       axios
         .post(`${BASEURL}/login`, { ...formData })
         .then((data) => {
           logIn(data.data.email);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => setErrorMessage("Something went wrong"));
     } else {
       setErrors(validationErrors);
     }
@@ -110,6 +113,7 @@ return (
             {errors.password && (
               <div className="errorMessage">{errors.password}</div>
             )}
+          <p style={{textAlign: "center"}}>{errorMessage}</p>
 
             <button type="submit" className="loginButton">
               Log In
